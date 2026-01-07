@@ -16,6 +16,28 @@ The environment eliminates public VM exposure while enabling **private administr
 ---
 
 ## 🧱 Architecture
+### Architecture Overview
+
+The environment follows a **hub-and-spoke network architecture**:
+
+- **Hub VNet (10.0.0.0/16)**
+  - Azure Bastion for secure administrative access
+  - Management subnet for shared services
+
+- **Spoke VNet (10.1.0.0/16)**
+  - Workload subnet hosting private virtual machines
+  - No public IPs assigned
+
+- **VNet Peering**
+  - Bidirectional peering between hub and spoke VNets
+  - Enables private traffic flow across networks
+
+- **Private Connectivity**
+  - Azure Storage accessed via **Private Endpoint**
+  - Private DNS used for internal name resolution
+
+All traffic remains on Azure’s private backbone, and administrative access is performed securely over HTTPS using Azure Bastion.
+
 
 ---
 
